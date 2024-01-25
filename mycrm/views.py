@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, addRecord
 from . import handle_uploaded_file
+from .models import NewFile
 
 
 # Create your views here.
@@ -53,9 +54,14 @@ def add_record(request):
         if request.method == 'POST':
             form = addRecord(request.POST, request.FILES)
             if form.is_valid():
-                form.upload = request.FILES['file']
+                #form.upload = request.FILES['file'] #forms.Forms doesn't have save() method, so you have call the object
                 #handlhandle_uploaded_file(request.FILES['file'])
+                # title = form.cleaned_data['title']
+                # file = form.cleaned_data['file']
+                form.save()
                 messages.success(request, 'File added successfully')
+
+                return redirect('view_records')
     else:
 
         messages.success(request, 'You must have to login to add file')
@@ -63,3 +69,12 @@ def add_record(request):
         form = addRecord()
 
     return render(request, 'add_record.html', {'form': form})
+
+def list_files(request):
+    if request.user.is_authenticated:
+    #if request.method != 'POST': the GET request gets data from the server, POST request sends data to the server
+        form = NewFile.objects.all()
+
+        return render(request, 'view_records.html', {'files': form})
+
+

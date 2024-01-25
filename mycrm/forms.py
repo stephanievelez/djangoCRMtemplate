@@ -13,12 +13,20 @@ class SignUpForm(UserCreationForm):
         model= User
         fields=('Name', 'email', 'username', 'password1', 'password2')
 
+class addRecord(forms.ModelForm):
 
-class addRecord(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
     class Meta:
         model = NewFile
-    #     fields = ('file', 'name', 'description')
+        fields = ['name', 'upload', 'description']
+        labels = {'Name of file': '', 'Select a file (max. 42 MB)': '', 'Description': ''}
+        widgets = {'Description of file being uploaded': forms.Textarea(attrs={'cols': 80})}
+
+
+# class addRecord(forms.Form):
+#     title = forms.CharField(max_length=50)
+#     file = forms.FileField()
+#     class Meta:
+#         model = NewFile
+#         fields = ['title', 'upload']
     #     #labels = {'Select a file (max. 42 MB)': '', 'Name of file': '', 'Description': ''}
     #     widgets = {'description': forms.Textarea(attrs={'cols': 80})}

@@ -4,6 +4,8 @@
 <div class="col-4 offset-4"> <!--this makes the login page in the middle of the screen-->
     {% if user.is_authenticated %}
     <h1> Welcome {{user.username | capfirst }} </h1>
+
+
     {% else %}
     <h1> login </h1>
      <form action= "{% url 'home' %}" method="post">
