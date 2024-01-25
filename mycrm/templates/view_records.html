@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-  {% block content %}
+{% block content %}
 <div class="col-4 offset-4"> <!--this makes the login page in the middle of the screen-->
 
-{{form.upload.url}}
+    {{form.upload.url}}
     {% for file in files %}}
     {{file.upload.url}}
     {{file.name}}
